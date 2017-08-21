@@ -1,2 +1,2 @@
 # bignerd
-This repository is to update the work on bignerd rannch book projects.
+This repository is to update the work on bignerd ranch book projects.
