@@ -1,5 +1,10 @@
 package com.bignerdranch.android.model;
 
+
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -11,13 +16,16 @@ public class Crime {
 
     private UUID mId;
     private String mTitle;
-    private Date mDate;
+    private String mDate;
     private boolean mSolved;
     private boolean mRequiresPolice;
 
+
     public Crime(){
         mId = UUID.randomUUID();
-        mDate = new Date();
+        Date date = new Date();
+        SimpleDateFormat mDateFormat = new SimpleDateFormat("EEEE, d MMM yyyy HH:mm:ss");
+        mDate = mDateFormat.format(date);
     }
 
     public UUID getId() {
@@ -42,11 +50,11 @@ public class Crime {
         mTitle = title;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return mDate;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         mDate = date;
     }
 
