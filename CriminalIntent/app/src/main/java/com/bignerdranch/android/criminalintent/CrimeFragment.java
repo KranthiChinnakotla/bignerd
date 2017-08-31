@@ -28,11 +28,19 @@ public class CrimeFragment extends Fragment {
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mCheckBox;
+    private static final String ARG_CRIME_ID = "crime_id";
 
+    public static CrimeFragment newInstance(UUID crime_id){
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CRIME_ID,crime_id);
+        CrimeFragment fragment = new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID crimeId = (UUID) getActivity().getIntent().getSerializableExtra(CrimeActivity.TAG);
+        UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = CrimeLab.getCrimeLab(getActivity()).getCrime(crimeId);
     }
 

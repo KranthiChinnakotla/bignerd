@@ -13,11 +13,12 @@ import java.util.UUID;
 
 public class CrimeActivity extends SingleFragmentActivity {
 
-    public static String TAG = "com.bignerdranch.android.crimeid";
+    private static String TAG = "com.bignerdranch.android.crimeid";
 
     @Override
     protected Fragment createFragment() {
-        return new CrimeFragment();
+        UUID crime_id = (UUID) getIntent().getSerializableExtra(TAG);
+        return CrimeFragment.newInstance(crime_id);
     }
 
     public static Intent newIntent(Context packageContext, UUID crimeId){
