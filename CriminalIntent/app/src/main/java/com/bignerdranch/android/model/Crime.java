@@ -26,6 +26,7 @@ public class Crime {
         Date date = new Date();
         SimpleDateFormat mDateFormat = new SimpleDateFormat("EEEE, d MMM yyyy HH:mm:ss");
         mDate = mDateFormat.format(date);
+
     }
 
     public UUID getId() {

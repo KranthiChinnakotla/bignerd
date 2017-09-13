@@ -31,6 +31,7 @@ public class CrimeListFragment extends Fragment {
     private TextView mTextViewTitle, mTextViewDate;
     private ImageView mImageView_Solved;
 
+    private static String TAG = "com.bignerdranch.android.crimeid";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class CrimeListFragment extends Fragment {
     private class CrimeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Crime mCrime;
+
 
         public void bind(Crime crime) {
             mCrime = crime;
@@ -67,7 +69,8 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = CrimeActivity.newIntent(getActivity(),mCrime.getId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity());
+            intent.putExtra(TAG,mCrime.getId());
             startActivity(intent);
         }
     }
