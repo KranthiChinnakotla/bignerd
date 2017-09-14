@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -32,6 +35,7 @@ public class CrimeListFragment extends Fragment {
     private ImageView mImageView_Solved;
 
     private static String TAG = "com.bignerdranch.android.crimeid";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +46,32 @@ public class CrimeListFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.new_crime:
+                Crime crime = new Crime();
+                CrimeLab.getCrimeLab(getActivity()).addCrime(crime);
+                Intent intent = CrimePagerActivity.newIntent(getActivity());
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private class CrimeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -52,7 +82,7 @@ public class CrimeListFragment extends Fragment {
             mCrime = crime;
             mTextViewTitle.setText(mCrime.getTitle());
             mTextViewDate.setText(mCrime.getDate().toString());
-            mImageView_Solved.setVisibility(mCrime.isSolved() ? View.VISIBLE:View.GONE);
+            mImageView_Solved.setVisibility(mCrime.isSolved() ? View.VISIBLE : View.GONE);
 
         }
 
@@ -70,7 +100,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onClick(View view) {
             Intent intent = CrimePagerActivity.newIntent(getActivity());
-            intent.putExtra(TAG,mCrime.getId());
+            intent.putExtra(TAG, mCrime.getId());
             startActivity(intent);
         }
     }
@@ -125,8 +155,8 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             Crime crime = mCrimes.get(position);
-                    CrimeViewHolder crimeViewHolder = (CrimeViewHolder) holder;
-                    crimeViewHolder.bind(crime);
+            CrimeViewHolder crimeViewHolder = (CrimeViewHolder) holder;
+            crimeViewHolder.bind(crime);
         }
 
         @Override
@@ -148,10 +178,10 @@ public class CrimeListFragment extends Fragment {
     private void updateUi() {
         CrimeLab crimeLab = CrimeLab.getCrimeLab(getActivity());
         List<Crime> crimes = crimeLab.getCrimesList();
-        if(mCrimeAdapter == null){
+        if (mCrimeAdapter == null) {
             mCrimeAdapter = new CrimeAdapter(crimes);
             mRecyclerView.setAdapter(mCrimeAdapter);
-        }else{
+        } else {
             mCrimeAdapter.notifyDataSetChanged();
             mRecyclerView.setAdapter(mCrimeAdapter);
         }
