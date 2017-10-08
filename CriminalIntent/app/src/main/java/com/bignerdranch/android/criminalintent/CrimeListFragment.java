@@ -129,38 +129,7 @@ public class CrimeListFragment extends Fragment {
             startActivity(intent);
         }
     }
-/*
-    private class SeriousCrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private Crime mCrime;
-
-        public void bind(Crime crime) {
-            mCrime = crime;
-            mTextViewTitle_Ser.setText(mCrime.getTitle());
-            mTextViewDate_Ser.setText(mCrime.getDate().toString());
-        }
-
-        public SeriousCrimeHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.row_list_item_ser, parent, false));
-            mTextViewDate_Ser = (TextView) itemView.findViewById(R.id.ser_row_CrimeDate);
-            mTextViewTitle_Ser = (TextView) itemView.findViewById(R.id.ser_row_CrimeTitle);
-            mButtonPolice = (Button) itemView.findViewById(R.id.ser_row_PoliceButton);
-            mButtonPolice.setOnClickListener(this);
-            itemView.setOnClickListener(this);
-
-        }
-
-        @Override
-        public void onClick(View view) {
-
-            if(view.getId() == mButtonPolice.getId()){
-                Toast.makeText(getActivity(),"Call police immediately, this is a serious "+mCrime.getTitle()+" commite on "+mCrime.getDate().toString()+" .",Toast.LENGTH_LONG).show();
-            }else if(view.getId() == itemView.getId()){
-                Toast.makeText(getActivity(), "The " + mCrime.getTitle() + " is clicked on " + mCrime.getDate() + ".", Toast.LENGTH_LONG).show();
-            }
-
-        }
-    }*/
 
     private class CrimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -174,6 +143,10 @@ public class CrimeListFragment extends Fragment {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             return new CrimeViewHolder(inflater, parent);
+        }
+
+        public void setCrimes(List<Crime> crimes){
+            mCrimes = crimes;
         }
 
         @Override
@@ -206,6 +179,7 @@ public class CrimeListFragment extends Fragment {
             mCrimeAdapter = new CrimeAdapter(crimes);
             mRecyclerView.setAdapter(mCrimeAdapter);
         } else {
+            mCrimeAdapter.setCrimes(crimes);
             mCrimeAdapter.notifyDataSetChanged();
             mRecyclerView.setAdapter(mCrimeAdapter);
         }

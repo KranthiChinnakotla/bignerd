@@ -19,15 +19,27 @@ public class Crime {
     private String mDate;
     private boolean mSolved;
     private boolean mRequiresPolice;
+    private String mSuspect;
 
+    public String getSuspect() {
+        return mSuspect;
+    }
 
-    public Crime(){
-        mId = UUID.randomUUID();
+    public void setSuspect(String suspect) {
+        mSuspect = suspect;
+    }
+
+    public Crime() {
+        this(UUID.randomUUID());
+    }
+
+    public Crime(UUID id) {
+        mId = id;
         Date date = new Date();
         SimpleDateFormat mDateFormat = new SimpleDateFormat("EEEE, d MMM yyyy HH:mm:ss");
         mDate = mDateFormat.format(date);
-
     }
+
 
     public UUID getId() {
         return mId;
